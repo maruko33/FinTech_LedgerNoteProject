@@ -1,0 +1,12 @@
+# ===== Core Framework =====
+fastapi==0.115.0
+uvicorn[standard]==0.31.1
+
+# ===== Environment  Config =====
+python-dotenv==1.0.1
+
+# ===== Optional future expansions =====
+pydantic==2.9.2         # data validation & models
+SQLAlchemy==2.0.35      # ORM for future database
+alembic==1.13.2         # database migration
+psycopg2-binary==2.9.9  # PostgreSQL connector (if using Postgres)
