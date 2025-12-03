@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
 
-DB_URI = "mysql+asyncmy://fastapi:Mk.20021112@192.168.2.62:3306/carenote?charset=utf8mb4"
+DB_URI = "mysql+asyncmy://fastapi:1112mike@127.0.0.1:3307/carenote"
 
 engine = create_async_engine(
     DB_URI,
@@ -24,3 +24,7 @@ AsyncSessionFactory = sessionmaker(
 )
 
 Base = declarative_base()
+
+
+#import other model py file (important !)
+from . import user, encounter, note, patient, visit
