@@ -1,8 +1,8 @@
-"""init models
+"""init ledgernote schema
 
-Revision ID: 30ee1950e24e
-Revises: 79e1f81d7435
-Create Date: 2025-12-03 15:39:41.373415
+Revision ID: ac4beec51dce
+Revises: 
+Create Date: 2025-12-22 11:00:29.384155
 
 """
 from typing import Sequence, Union
@@ -12,8 +12,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '30ee1950e24e'
-down_revision: Union[str, None] = '79e1f81d7435'
+revision: str = 'ac4beec51dce'
+down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 

@@ -1,30 +1,11 @@
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
+from models.base import Base
 
+from .user import User
+from .ledger_account import LedgerAccount
+from .journal_entry import JournalEntry
+from .posting import Posting
+from .budget import Budget
+from .budget_line import BudgetLine
 
-DB_URI = "mysql+asyncmy://fastapi:1112mike@127.0.0.1:3307/carenote"
+target_metadata = Base.metadata
 
-engine = create_async_engine(
-    DB_URI,
-    echo = True,
-    pool_size = 10,
-    max_overflow = 10,
-    pool_timeout = 10,
-    pool_recycle = 3600,
-    pool_pre_ping = True,
-
-)
-
-AsyncSessionFactory = sessionmaker(
-    bind = engine,
-    class_ = AsyncSession,
-    autoflush = True,
-    expire_on_commit = False
-)
-
-Base = declarative_base()
-
-
-#import other model py file (important !)
-from . import user, encounter, note, patient, visit
