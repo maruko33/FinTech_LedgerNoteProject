@@ -1,3 +1,5 @@
+from enum import Enum
+
 class AccountType(str, Enum):
     ASSET = "ASSET"
     LIABILITY = "LIABILITY"
