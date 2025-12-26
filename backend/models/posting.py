@@ -1,5 +1,5 @@
 from __future__ import annotations
-from models.base import Base
+from db.base import Base
 from datetime import datetime
 from typing import Optional
 from sqlalchemy import (

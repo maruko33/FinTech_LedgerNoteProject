@@ -2,8 +2,10 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from middlewares import dbs
 from starlette.middleware.base import BaseHTTPMiddleware
+from routers.v1.router import router as api_router
+from core import auth
 
-app = FastAPI(title="CareNote API")
+app = FastAPI(title="LedgerNotes API")
 
 # 允许本地前端访问（Vite 默认 5173 端口）
 app.add_middleware(
@@ -14,9 +16,21 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+#DB session middleware（后端内部用）
+app.add_middleware(BaseHTTPMiddleware, dispatch=dbs.create_session_middleware)
+
+#路由
+app.include_router(api_router)
+app.include_router(auth.router)
+
+
+#test 
 @app.get("/health")
 def health():
     return {"status": "ok"}
+
+
+
 
 ####docker & mysql####
 
@@ -31,3 +45,9 @@ def health():
 #alembic revision --autogenerate -m "init models"           execute alembic in root dict
 
 #alembic upgrade head                                       alembic will connect to mysql and setup tables
+
+#activate virtual environment
+#source .venv/bin/activate
+
+#fastAPI：
+#uvicorn main:app --reload                         start fastAPI

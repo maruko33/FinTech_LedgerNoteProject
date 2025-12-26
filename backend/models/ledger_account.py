@@ -1,5 +1,5 @@
 from __future__ import annotations
-from models.base import Base
+from db.base import Base
 from models.enums import AccountType
 from datetime import datetime
 from typing import List, Optional

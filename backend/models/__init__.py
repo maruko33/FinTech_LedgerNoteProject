@@ -1,4 +1,4 @@
-from models.base import Base
+from db.base import Base
 
 from .user import User
 from .ledger_account import LedgerAccount

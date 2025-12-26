@@ -1,6 +1,6 @@
 from __future__ import annotations
 from models.enums import BudgetPeriod
-from models.base import Base
+from db.base import Base
 from datetime import datetime, date
 from typing import List
 from sqlalchemy import (

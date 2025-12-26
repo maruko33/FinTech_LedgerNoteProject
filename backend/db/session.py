@@ -22,5 +22,3 @@ AsyncSessionFactory = sessionmaker(
     autoflush = True,
     expire_on_commit = False
 )
-
-Base = declarative_base()
