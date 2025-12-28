@@ -10,7 +10,11 @@ async def create_session_middleware(request: Request,call_next):
     try:
         response = await call_next(request)#分水岭-----------
          #分水岭之后，return之前是response返回给浏览器之前执行的
+        await session.commit()
         return response
+    except Exception:
+        await session.rollback()
+        raise
     finally:
         await session.close()
 
