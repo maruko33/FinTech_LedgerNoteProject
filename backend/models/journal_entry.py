@@ -21,7 +21,7 @@ class JournalEntry(Base):
 
     id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=True)
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
-
+    #time that this transaction happened
     occurred_at: Mapped[datetime] = mapped_column(DateTime, nullable=False)
     description: Mapped[str] = mapped_column(String(255), nullable=False)
 
@@ -30,7 +30,7 @@ class JournalEntry(Base):
 
     correction_of_entry_id: Mapped[Optional[int]] = mapped_column(ForeignKey("journal_entries.id"))
     reversal_of_entry_id: Mapped[Optional[int]] = mapped_column(ForeignKey("journal_entries.id"))
-
+    #time that enroll this entry to notebook
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, nullable=False)
 
     # relationships

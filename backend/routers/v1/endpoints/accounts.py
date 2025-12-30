@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Depends
 from schemas.accounts import AccountCreate, AccountUpdate, AccountOut
 from sqlalchemy.ext.asyncio import AsyncSession
-from core.deps import get_db, get_current_user
+from core.deps import get_db, get_current_user, pagination_params
 from models.user import User
 from crud.accounts import create_account,get_account,list_accounts,update_accounts
 
@@ -18,10 +18,12 @@ async def account_create(
 
 @router.get("/",response_model=list[AccountOut])
 async def account_viewList(
+    page: tuple[int, int] = Depends(pagination_params),
     db:AsyncSession = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-    return await list_accounts(db,current_user.id)
+    limit, offset = page
+    return await list_accounts(db,current_user.id,limit,offset)
 
 @router.get("/{id}", response_model=AccountOut)
 async def account_viewID(

@@ -1,4 +1,4 @@
-from fastapi import Depends, HTTPException, Request, status
+from fastapi import Depends, HTTPException, Request, status,Query
 from fastapi.security import OAuth2PasswordBearer
 from jose import jwt, JWTError
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -40,3 +40,9 @@ async def get_current_user(
     if not user:
         raise credentials_exception
     return user
+
+def pagination_params(
+    limit: int = Query(settings.DEFAULT_LIMIT, ge=1, le=settings.MAX_LIMIT),
+    offset: int = Query(settings.DEFAULT_OFFSET, ge=0),
+):
+    return limit, offset

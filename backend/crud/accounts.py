@@ -2,6 +2,7 @@ from models.ledger_account import LedgerAccount
 from fastapi import HTTPException
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
+from core.config import settings
 async def create_account(db:AsyncSession, user_id:int, data):
     # 1) if parent_id is send：it has to be current user（or raise -> 404）
     if data.parent_id is not None:
@@ -47,11 +48,11 @@ async def get_account(db,user_id,account_id):
     return account
 
 
-async def list_accounts(db, user_id):
+async def list_accounts(db, user_id,limit,offset):
     result = await db.execute(
         select(LedgerAccount).where(
             LedgerAccount.user_id == user_id
-            ).order_by(LedgerAccount.id.desc()).offset(0).limit(5)
+            ).order_by(LedgerAccount.id.desc()).offset(offset).limit(limit)
     )
     accounts = result.scalars().all()
     return accounts
