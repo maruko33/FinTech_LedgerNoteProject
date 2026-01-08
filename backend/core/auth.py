@@ -27,7 +27,7 @@ async def register(
     # 2) 创建用户
     user = User(
         email=email,
-        password_hash=hash_password(password),  # ⚠️ 你字段名可能不同，按你的模型改
+        password_hash=hash_password(password),  
     )
     db.add(user)
     await db.commit()

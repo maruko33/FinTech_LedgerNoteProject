@@ -1,14 +1,21 @@
 from sqlalchemy import select,func
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
-from schemas.journal_entries import JournalEntryCreate,JournalEntryReversalIn
+from schemas.journal_entries import JournalEntryCreate,JournalEntryReversalIn,JournalEntryCorrectionIn
 from models.journal_entry import JournalEntry
 from models.posting import Posting
 from fastapi import HTTPException
 from models.ledger_account import LedgerAccount
 from core.config import settings
 from datetime import datetime, timezone
-async def create_journal_entry(journal_entry_data: JournalEntryCreate,db:AsyncSession,user_id:int):
+async def create_journal_entry(
+        journal_entry_data: JournalEntryCreate,
+        db:AsyncSession,
+        user_id:int,
+        *,
+        correction_of_entry_id: int | None = None,
+        reversal_of_entry_id: int | None = None,        
+        ):
     ###---Security Check Start---###
     #check number of postings >1
     if len(journal_entry_data.postings) < 2 :
@@ -18,6 +25,8 @@ async def create_journal_entry(journal_entry_data: JournalEntryCreate,db:AsyncSe
         user_id = user_id,
         occurred_at = journal_entry_data.occurred_at,
         description = journal_entry_data.description,
+        correction_of_entry_id=correction_of_entry_id,
+        reversal_of_entry_id=reversal_of_entry_id,
     )
     
     
@@ -183,3 +192,25 @@ async def reverse_journal_entries(
     return result.scalar_one()
 
 
+async def correct_journal_entries(
+    journal_id: int,
+    journal_correct_data: JournalEntryCorrectionIn,
+    db: AsyncSession,
+    user_id: int,
+):
+    occurred_at = (
+        journal_correct_data.occurred_at
+        if journal_correct_data and journal_correct_data.occurred_at
+        else datetime.now(timezone.utc)
+    )
+    description = (
+        journal_correct_data.description
+        if journal_correct_data and journal_correct_data.description
+        else f"Correction of entry {journal_id}"
+    )
+    corrected = journal_correct_data.corrected.model_copy(update={
+        "occurred_at": occurred_at,
+        "description": description,
+    })
+    return await create_journal_entry(corrected,db,user_id,correction_of_entry_id=journal_id)
+ 

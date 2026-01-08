@@ -25,3 +25,8 @@ class JournalEntryOut(BaseModel):
 class JournalEntryReversalIn(BaseModel):
     occurred_at: datetime | None = None
     description: str | None = None
+
+class JournalEntryCorrectionIn(BaseModel):
+    occurred_at: datetime | None = None
+    description: str | None = None   
+    corrected: JournalEntryCreate             
