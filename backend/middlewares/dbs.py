@@ -6,10 +6,10 @@ async def create_session_middleware(request: Request,call_next):
 
     session = AsyncSessionFactory()
     request.state.session = session
-    #分水岭之前的 就是request到达视图函数（router里写的（add_user））之前执行的
+    #The part before the watershed is the part executed before the request reaches the view function (written in the router as (add_user)).
     try:
-        response = await call_next(request)#分水岭-----------
-         #分水岭之后，return之前是response返回给浏览器之前执行的
+        response = await call_next(request)#watershed-----------
+         #The part after the watershed and before the `return` statement executes before the response is sent to the browser.
         await session.commit()
         return response
     except Exception:
