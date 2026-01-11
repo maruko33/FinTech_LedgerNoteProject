@@ -46,8 +46,11 @@ def health():
 
 #alembic upgrade head                                       alembic will connect to mysql and setup tables
 
-#activate virtual environment
+####activate virtual environment
+#python -m venv .venv
 #source .venv/bin/activate
+#pip install -r requirements.txt
 
-#fastAPI：
+
+####fastAPI：
 #uvicorn main:app --reload                         start fastAPI

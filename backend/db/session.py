@@ -1,9 +1,15 @@
+import os
+from pathlib import Path
+from dotenv import load_dotenv
+
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
+BASE_DIR = Path(__file__).resolve().parents[1]
+load_dotenv(BASE_DIR / ".env")
 
-DB_URI = "mysql+asyncmy://fastapi:1112mike@127.0.0.1:3307/ledgernote_dev?charset=utf8mb4"
+DB_URI = os.environ["DATABASE_URL"]
 
 engine = create_async_engine(
     DB_URI,

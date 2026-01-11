@@ -125,6 +125,7 @@ cp .env.example .env
 ### 2) Start MySQL with Docker
 
 ```bash
+cd ./backend/
 docker compose up -d
 ```
 
@@ -132,7 +133,8 @@ docker compose up -d
 
 ```bash
 python -m venv .venv
-# Windows: .venv\Scripts\activate
+# .\.venv\Scripts\Activate.ps1         # Windows PowerShell
+# .\.venv\Scripts\activate.bat         # Windows CMD
 source .venv/bin/activate
 
 pip install -r requirements.txt
@@ -161,8 +163,8 @@ This repo expects environment variables via `.env`.
 
 Typical variables (see `.env.example`):
 - `DATABASE_URL` (async SQLAlchemy URL)
-- `JWT_SECRET_KEY`
-- `JWT_ACCESS_TOKEN_EXPIRE_MINUTES`
+- `SECRET_KEY`
+- `ACCESS_TOKEN_EXPIRE_MINUTES`
 - Optional CORS settings
 
 ## Demo Walkthrough

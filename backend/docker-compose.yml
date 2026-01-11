@@ -1,7 +1,7 @@
 services:
   mysql:
     image: mysql:8
-    container_name: carenote-mysql
+    container_name: ledgernote-mysql
     ports:
       - "3307:3306"
     environment:
