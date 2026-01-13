@@ -10,7 +10,7 @@ app = FastAPI(title="LedgerNotes API")
 # 允许本地前端访问（Vite 默认 5173 端口）
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=["http://localhost:5173","http://127.0.0.1:5173"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -54,3 +54,4 @@ def health():
 
 ####fastAPI：
 #uvicorn main:app --reload                         start fastAPI
+#uvicorn main:app --reload --host 0.0.0.0 --port 8000 so that could be accessed by frontend
