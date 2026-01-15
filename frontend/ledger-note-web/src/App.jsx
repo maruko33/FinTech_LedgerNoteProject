@@ -19,67 +19,70 @@ export default function App() {
   }
 
   return (
-    <div style={{ maxWidth: 960, margin: "0 auto", padding: 16 }}>
-      <header style={{ display: "flex", gap: 12, alignItems: "center" }}>
-        <h2 style={{ marginRight: "auto" }}>LedgerNote</h2>
+    <div className="container">
+      <div style={{ maxWidth: 960, margin: "0 auto", padding: 16 }}>
+        <header className="nav">
+          <h2 style={{ marginRight: "auto" }}>LedgerNote</h2>
 
-        <nav style={{ display: "flex", gap: 10 }}>
-          <Link to="/login">Login</Link>
-          <Link to="/register">Register</Link>
-          <Link to="/accounts">Accounts</Link>
-          <Link to="/entries">Entries</Link>
-          <Link to="/reports/trial-balance">Trial Balance</Link>
-          
-        </nav>
+          <nav style={{ display: "flex", gap: 10 }}>
+            <Link to="/login">Login</Link>
+            <Link to="/register">Register</Link>
+            <Link to="/accounts">Accounts</Link>
+            <Link to="/entries">Entries</Link>
+            <Link to="/reports/trial-balance">Trial Balance</Link>
+            
+          </nav>
 
-        {token ? <button onClick={onLogout}>Logout</button> : <span>Guest</span>}
-      </header>
+          {token ? <button onClick={onLogout}>Logout</button> : <span>Guest</span>}
+        </header>
 
-      <hr style={{ margin: "16px 0" }} />
+        <hr style={{ margin: "16px 0" }} />
 
-      <Routes>
-        <Route path="/login" element={<LoginPage />} />
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
 
-        <Route
-          path="/accounts"
-          element={
-            <RequireAuth>
-              <AccountsPage />
-            </RequireAuth>
-          }
-        />
+          <Route
+            path="/accounts"
+            element={
+              <RequireAuth>
+                <AccountsPage />
+              </RequireAuth>
+            }
+          />
 
-        <Route
-          path="/entries"
-          element={
-            <RequireAuth>
-              <EntriesPage />
-            </RequireAuth>
-          }
-        />
+          <Route
+            path="/entries"
+            element={
+              <RequireAuth>
+                <EntriesPage />
+              </RequireAuth>
+            }
+          />
 
-        <Route
-          path="/entries/new"
-          element={
-            <RequireAuth>
-              <NewEntryPage />
-            </RequireAuth>
-          }
-        />
+          <Route
+            path="/entries/new"
+            element={
+              <RequireAuth>
+                <NewEntryPage />
+              </RequireAuth>
+            }
+          />
 
-        <Route
-          path="/reports/trial-balance"
-          element={
-            <RequireAuth>
-              <TrialBalancePage />
-            </RequireAuth>
-          }
-        />
+          <Route
+            path="/reports/trial-balance"
+            element={
+              <RequireAuth>
+                <TrialBalancePage />
+              </RequireAuth>
+            }
+          />
 
-        <Route path="/register" element={<RegisterPage />} />
+          <Route path="/register" element={<RegisterPage />} />
 
-        <Route path="*" element={<div>Not Found</div>} />
-      </Routes>
+          <Route path="*" element={<div>Not Found</div>} />
+        </Routes>
+      </div>
     </div>
+    
   );
 }

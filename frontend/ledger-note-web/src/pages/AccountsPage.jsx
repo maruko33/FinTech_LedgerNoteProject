@@ -48,7 +48,7 @@ export default function AccountsPage() {
   }
 
   return (
-    <div>
+    <div >
       <h3>Accounts</h3>
 
       <form onSubmit={onCreate} style={{ display: "grid", gap: 8, maxWidth: 420 }}>
